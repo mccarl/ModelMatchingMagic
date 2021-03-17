@@ -530,7 +530,7 @@
     },
     {
       "type": "CRJ7",
-      "regex": "(?i)(?=.*crj-?7(00)?)",
+      "regex": "(?i)(?=.*bombardier)(?=.*crj-?7(00)?)",
       "tags": {
         "manufacturer": "Bombardier",
         "size": 20,
@@ -539,7 +539,7 @@
     },
     {
       "type": "CRJ9",
-      "regex": "(?i)(?=.*crj-?9(00)?)",
+      "regex": "(?i)(?=.*bombardier)(?=.*crj-?9(00)?)",
       "tags": {
         "manufacturer": "Bombardier",
         "size": 20,
@@ -548,7 +548,7 @@
     },
     {
       "type": "CRJX",
-      "regex": "(?i)(?=.*crj-?1000)",
+      "regex": "(?i)(?=.*bombardier)(?=.*crj-?1000)",
       "tags": {
         "manufacturer": "Bombardier",
         "size": 20,

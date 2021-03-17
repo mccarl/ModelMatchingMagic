@@ -33,7 +33,7 @@ namespace ModelMatchingMagic
 
             using(WebClient wc = new WebClient())
             {
-                string mmmJson = wc.DownloadString("https://raw.githubusercontent.com/mccarl/ModelMatchingMagic/main/ModelMatchingMagic.json");
+                string mmmJson = wc.DownloadString("https://raw.githubusercontent.com/mccarl/ModelMatchingMagic/master/ModelMatchingMagic.json");
                 mmm = JsonConvert.DeserializeObject<ModelMatchingMagic>(mmmJson);
             }
 
@@ -138,14 +138,15 @@ namespace ModelMatchingMagic
                         if (d.Value.TryGetValue("title", out string title))
                         {
                             string type = null;
+                            string manufacturer = null;
                             string airline = null;
                             Boolean ivao = false;
 
                             d.Value.TryGetValue("ui_type", out type);
+                            d.Value.TryGetValue("ui_manufacturer", out manufacturer);
                             d.Value.TryGetValue("icao_airline", out airline);
 
-                            Match match;
-                            string typeInput = title + type;
+                            string typeInput = title + type + manufacturer;
 
                             type = null;
 
@@ -163,95 +164,6 @@ namespace ModelMatchingMagic
                             }
                             else
                             {
-                                match = regexAirbus.Match(typeInput);
-                                if (match.Success)
-                                {
-                                    type = "A" + match.Groups[1].Value + match.Groups[2].Value;
-                                    if (String.Equals(match.Groups[4].Value, ""))
-                                    {
-                                        type = type + match.Groups[3].Value;
-                                    }
-                                    else
-                                    {
-                                        type = type + match.Groups[4].Value;
-                                    }
-
-                                    if (typeInput.ToLower().Contains("neo"))
-                                    {
-                                        type = "A" + type.Substring(2, 2) + "N";
-                                    }
-                                }
-                                else
-                                {
-                                    match = regexBoeingMax.Match(typeInput);
-                                    if (match.Success)
-                                    {
-                                        string variant = match.Groups[1].Value;
-                                        if (String.IsNullOrWhiteSpace(variant))
-                                        {
-                                            variant = "8";
-                                        }
-                                        else if (String.Equals(variant, "10"))
-                                        {
-                                            variant = "X";
-                                        }
-                                        type = "B3" + variant + "M";
-                                    }
-                                    else
-                                    {
-                                        match = regexBoeing.Match(typeInput);
-                                        if (match.Success)
-                                        {
-                                            string secondNumber = match.Groups[1].Value;
-                                            type = "B7" + secondNumber;
-                                            if (String.Equals(match.Groups[2].Value, ""))
-                                            {
-                                                string variant = "0";
-                                                if (String.Equals(secondNumber, "0"))
-                                                {
-                                                    variant = "3";
-                                                }
-                                                else if (String.Equals(secondNumber, "1") || String.Equals(secondNumber, "5"))
-                                                {
-                                                    variant = "2";
-                                                }
-
-                                                type = type + variant;
-                                            }
-                                            else
-                                            {
-                                                string dashNumber = match.Groups[2].Value;
-                                                if (String.Equals(secondNumber, "8") && String.Equals(dashNumber, "1"))
-                                                {
-                                                    dashNumber = "X";
-                                                }
-                                                type = type + dashNumber;
-                                            }
-                                        }
-                                        else if (typeInput.ToLower().Contains("cessna"))
-                                        {
-                                            match = regexCessna.Match(typeInput);
-                                            if (match.Success)
-                                            {
-                                                type = "C" + match.Groups[1].Value;
-                                            }
-                                        }
-                                        else if (typeInput.ToLower().Contains("diamond"))
-                                        {
-                                            match = regexDiamond.Match(typeInput);
-                                            if (match.Success)
-                                            {
-                                                type = match.Groups[1].Value;
-                                            }
-                                        }
-                                        else if (typeInput.ToLower().Contains("spitfire"))
-                                        {
-                                            type = "SPIT";
-                                        }
-                                    }
-                                }
-
-                                //string type2 = null;
                                 foreach (Aircraft_Type at in mmm.aircraft_types)
                                 {
                                     if (at.isMatch(typeInput))
@@ -259,11 +171,6 @@ namespace ModelMatchingMagic
                                         type = at.type;
                                     }
                                 }
-
-                                //if (!String.Equals(type, type2))
-                                //{
-                                //    Console.WriteLine($"{type}: but found {type2}");
-                                //}
                             }
 
 
