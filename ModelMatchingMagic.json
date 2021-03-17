@@ -559,6 +559,15 @@
         "size": 20,
         "engine": "regional jet"
       }
+    },
+    {
+      "type": "C25C",
+      "regex": "(?i)(?=.*cj4)",
+      "tags": {
+        "manufacturer": "Cessna",
+        "size": 20,
+        "engine": "regional jet"
+      }
     }
 
   ]
