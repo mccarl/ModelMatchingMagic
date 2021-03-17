@@ -330,6 +330,10 @@
     {
       "name": "easyJet",
       "codes": [ "EZY", "EJU", "EZS" ]
+    },
+    {
+      "name": "Lufthansa",
+      "codes": [ "DLH", "CLH" ]
     }
   ],
 
