@@ -1,0 +1,561 @@
+﻿{
+  "model_overrides": [
+    {
+      "model": "Airbus A320 Neo Asobo",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
+      "model": "Airbus A320 Neo Asobo AirTraffic 00",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
+      "model": "Airbus A320 Neo Asobo AirTraffic 01",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
+      "model": "Airbus A320 Neo Asobo AirTraffic 02",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
+      "model": "Airbus A320neo FlyByWire",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
+      "model": "Airbus A330-300",
+      "type": "A333",
+      "exclude": true
+    },
+    {
+      "model": "1968 Qantas",
+      "airline": "QFA",
+      "type": "A320"
+    },
+    {
+      "model": "1968 QANTAS AI",
+      "airline": "QFA",
+      "type": "A320"
+    },
+    {
+      "model": "Airbus A320 Neo Ryanair",
+      "airline": "RYR",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Ryanair AI",
+      "airline": "RYR",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Aer Lingus Original",
+      "airline": "EIN",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Aer Lingus Original AI",
+      "airline": "EIN",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo AerLingus Rugby team",
+      "airline": "EIN",
+      "type": "A20N"
+    },
+    {
+      "model": "Boeing 787-10 Air New Zealand BLACK",
+      "airline": "ANZ",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 Air New Zealand WHITE",
+      "airline": "ANZ",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 British Airways",
+      "airline": "BAW",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 Etihad Green",
+      "airline": "ETD",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 Etihad Airways",
+      "airline": "ETD",
+      "type": "B78X"
+    },
+    {
+      "model": "Airbus A320 Neo KLM Pride",
+      "airline": "KLM",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo KLM Pride AI",
+      "airline": "KLM",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Mohican Airways",
+      "airline": "MOW",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Mohican Airways AI",
+      "airline": "MOW",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Titan Airways",
+      "airline": "AWC",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Titan Airways  AI",
+      "airline": "AWC",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Virgin Blue",
+      "airline": "VOZ",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Virgin Blue AI",
+      "airline": "VOZ",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Air Caraibes",
+      "airline": "FWI",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Air Caraibes AI",
+      "airline": "FWI",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Anadolu Jet",
+      "airline": "THY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Anadolu Jet AI",
+      "airline": "THY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Azores Wonder",
+      "airline": "RZO",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Azores Wonder AI",
+      "airline": "RZO",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo EasyJet.com",
+      "airline": "EZY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo GoAir",
+      "airline": "GOW",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo GoAir AI",
+      "airline": "GOW",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Hstoric LTU",
+      "airline": "LTU",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo LTU New",
+      "airline": "LTU",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Icelandair Hekla Borealis",
+      "airline": "ICE",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Israel Airlines",
+      "airline": "ELY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Israel Airlines AI",
+      "airline": "ELY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Jazeera",
+      "airline": "JZR",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Niki Berlin",
+      "airline": "NLY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Play",
+      "airline": "PLY",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo S7 Airlines",
+      "airline": "SBI",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 S7 Airlines AI",
+      "airline": "SBI",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Skytraders",
+      "airline": "SND",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo SpiceJet",
+      "airline": "SEJ",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo SpiceJet AI",
+      "airline": "SEJ",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo SQ",
+      "airline": "SIA",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo SQ AI",
+      "airline": "SIA",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Sunwing TUI",
+      "airline": "SWG",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo TUI Blue",
+      "airline": "TOM",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo United (Merger)",
+      "airline": "UAL",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo United (Merger) AI",
+      "airline": "UAL",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo United Gold",
+      "airline": "UAL",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo United Gold AI",
+      "airline": "UAL",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Volaris",
+      "airline": "VOI",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Volaris AI",
+      "airline": "VOI",
+      "type": "A20N"
+    },
+    {
+      "model": "Boeing 747-8i Asobo UPS",
+      "airline": "UPS",
+      "type": "B748"
+    },
+    {
+      "model": "Boeing 787-10 Air France",
+      "airline": "AFR",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 American Airlines",
+      "airline": "AAL",
+      "type": "B78X"
+    },
+    {
+      "model": "Boeing 787-10 Emirates",
+      "airline": "UAE",
+      "type": "B78X"
+    },
+    {
+      "model": "Cessna Citation Longitude NETJETS",
+      "airline": "EJA",
+      "type": "C700"
+    }
+  ],
+
+  "airline_groups": [
+    {
+      "name": "British Airways",
+      "codes": [ "BAW", "SHT", "BA" ]
+    },
+    {
+      "name": "easyJet",
+      "codes": [ "EZY", "EJU", "EZS" ]
+    }
+  ],
+
+  "aircraft_types": [
+    {
+      "type": "A320",
+      "regex": "(?i)(?=.*airbus)(?=.*a320)(?!.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A321",
+      "regex": "(?i)(?=.*airbus)(?=.*a321)(?!.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A319",
+      "regex": "(?i)(?=.*airbus)(?=.*a319)(?!.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A318",
+      "regex": "(?i)(?=.*airbus)(?=.*a318)(?!.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A20N",
+      "regex": "(?i)(?=.*airbus)(?=.*a320)(?=.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A21N",
+      "regex": "(?i)(?=.*airbus)(?=.*a321)(?=.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A19N",
+      "regex": "(?i)(?=.*airbus)(?=.*a319)(?=.*neo)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A333",
+      "regex": "(?i)(?=.*airbus)(?=.*a330)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "A359",
+      "regex": "(?i)(?=.*airbus)(?=.*a350-900)",
+      "tags": {
+        "manufacturer": "Airbus",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+
+    {
+      "type": "B732",
+      "regex": "(?i)(?=.*boeing)(?=.*737-200)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B733",
+      "regex": "(?i)(?=.*boeing)(?=.*737-300)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B737",
+      "regex": "(?i)(?=.*boeing)(?=.*737-700)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B738",
+      "regex": "(?i)(?=.*boeing)(?=.*737-800)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 10,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B748",
+      "regex": "(?i)(?=.*boeing)(?=.*747-8)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B763",
+      "regex": "(?i)(?=.*boeing)(?=.*767-300)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B772",
+      "regex": "(?i)(?=.*boeing)(?=.*777-200)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B77L",
+      "regex": "(?i)(?=.*boeing)(?=.*777-300lr)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B77W",
+      "regex": "(?i)(?=.*boeing)(?=.*777-300er)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B788",
+      "regex": "(?i)(?=.*boeing)(?=.*787-8)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B789",
+      "regex": "(?i)(?=.*boeing)(?=.*787-9)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "B78X",
+      "regex": "(?i)(?=.*boeing)(?=.*787-10)",
+      "tags": {
+        "manufacturer": "Boeing",
+        "size": 20,
+        "engine": "jet"
+      }
+    },
+    {
+      "type": "C208",
+      "regex": "(?i)(?=.*cessna)(?=.*208)",
+      "tags": {
+        "manufacturer": "Cessna",
+        "size": 20,
+        "engine": "prop"
+      }
+    },
+    {
+      "type": "CRJ7",
+      "regex": "(?i)(?=.*crj-?7(00)?)",
+      "tags": {
+        "manufacturer": "Bombardier",
+        "size": 20,
+        "engine": "regional jet"
+      }
+    },
+    {
+      "type": "CRJ9",
+      "regex": "(?i)(?=.*crj-?9(00)?)",
+      "tags": {
+        "manufacturer": "Bombardier",
+        "size": 20,
+        "engine": "regional jet"
+      }
+    },
+    {
+      "type": "CRJX",
+      "regex": "(?i)(?=.*crj-?1000)",
+      "tags": {
+        "manufacturer": "Bombardier",
+        "size": 20,
+        "engine": "regional jet"
+      }
+    }
+
+  ]
+
+}
