@@ -29,7 +29,7 @@ namespace ModelMatchingMagic
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -43,25 +43,25 @@ namespace ModelMatchingMagic
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageModels = new System.Windows.Forms.TabPage();
             this.tabPageAirlines = new System.Windows.Forms.TabPage();
-            this.tabPageAircraft = new System.Windows.Forms.TabPage();
             this.dataGridViewAirlines = new System.Windows.Forms.DataGridView();
-            this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
-            this.colAircraftType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageAircraft = new System.Windows.Forms.TabPage();
+            this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
+            this.colAircraftType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageModels.SuspendLayout();
             this.tabPageAirlines.SuspendLayout();
-            this.tabPageAircraft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirlines)).BeginInit();
+            this.tabPageAircraft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAircraft)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,16 +197,6 @@ namespace ModelMatchingMagic
             this.tabPageAirlines.Text = "Airline Codes";
             this.tabPageAirlines.UseVisualStyleBackColor = true;
             // 
-            // tabPageAircraft
-            // 
-            this.tabPageAircraft.Controls.Add(this.dataGridViewAircraft);
-            this.tabPageAircraft.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAircraft.Name = "tabPageAircraft";
-            this.tabPageAircraft.Size = new System.Drawing.Size(765, 322);
-            this.tabPageAircraft.TabIndex = 2;
-            this.tabPageAircraft.Text = "Aircraft Types";
-            this.tabPageAircraft.UseVisualStyleBackColor = true;
-            // 
             // dataGridViewAirlines
             // 
             this.dataGridViewAirlines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -224,46 +214,8 @@ namespace ModelMatchingMagic
             this.dataGridViewAirlines.Name = "dataGridViewAirlines";
             this.dataGridViewAirlines.Size = new System.Drawing.Size(765, 322);
             this.dataGridViewAirlines.TabIndex = 0;
-            // 
-            // dataGridViewAircraft
-            // 
-            this.dataGridViewAircraft.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewAircraft.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAircraft.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colAircraftType,
-            this.colManufacturer,
-            this.colSize,
-            this.colEngine});
-            this.dataGridViewAircraft.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewAircraft.Name = "dataGridViewAircraft";
-            this.dataGridViewAircraft.Size = new System.Drawing.Size(762, 319);
-            this.dataGridViewAircraft.TabIndex = 0;
-            // 
-            // colAircraftType
-            // 
-            this.colAircraftType.HeaderText = "Aircraft Type";
-            this.colAircraftType.Name = "colAircraftType";
-            this.colAircraftType.Width = 150;
-            // 
-            // colManufacturer
-            // 
-            this.colManufacturer.HeaderText = "Manufacturer";
-            this.colManufacturer.Name = "colManufacturer";
-            // 
-            // colSize
-            // 
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colSize.HeaderText = "Size";
-            this.colSize.Name = "colSize";
-            // 
-            // colEngine
-            // 
-            this.colEngine.HeaderText = "Engine Type";
-            this.colEngine.Name = "colEngine";
+            this.dataGridViewAirlines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAirlines_CellValueChanged);
+            this.dataGridViewAirlines.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewAirlines_EditingControlShowing);
             // 
             // colAirlineName
             // 
@@ -301,6 +253,56 @@ namespace ModelMatchingMagic
             this.colCodes5.Name = "colCodes5";
             this.colCodes5.Width = 60;
             // 
+            // tabPageAircraft
+            // 
+            this.tabPageAircraft.Controls.Add(this.dataGridViewAircraft);
+            this.tabPageAircraft.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAircraft.Name = "tabPageAircraft";
+            this.tabPageAircraft.Size = new System.Drawing.Size(765, 322);
+            this.tabPageAircraft.TabIndex = 2;
+            this.tabPageAircraft.Text = "Aircraft Types";
+            this.tabPageAircraft.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewAircraft
+            // 
+            this.dataGridViewAircraft.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewAircraft.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAircraft.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colAircraftType,
+            this.colManufacturer,
+            this.colSize,
+            this.colEngine});
+            this.dataGridViewAircraft.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewAircraft.Name = "dataGridViewAircraft";
+            this.dataGridViewAircraft.Size = new System.Drawing.Size(762, 319);
+            this.dataGridViewAircraft.TabIndex = 0;
+            // 
+            // colAircraftType
+            // 
+            this.colAircraftType.HeaderText = "Aircraft Type";
+            this.colAircraftType.Name = "colAircraftType";
+            this.colAircraftType.Width = 150;
+            // 
+            // colManufacturer
+            // 
+            this.colManufacturer.HeaderText = "Manufacturer";
+            this.colManufacturer.Name = "colManufacturer";
+            // 
+            // colSize
+            // 
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colSize.HeaderText = "Size";
+            this.colSize.Name = "colSize";
+            // 
+            // colEngine
+            // 
+            this.colEngine.HeaderText = "Engine Type";
+            this.colEngine.Name = "colEngine";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,8 +320,8 @@ namespace ModelMatchingMagic
             this.tabControl1.ResumeLayout(false);
             this.tabPageModels.ResumeLayout(false);
             this.tabPageAirlines.ResumeLayout(false);
-            this.tabPageAircraft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAirlines)).EndInit();
+            this.tabPageAircraft.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAircraft)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

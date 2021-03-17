@@ -376,7 +376,17 @@ namespace ModelMatchingMagic
         {
             if (dataGridViewModels.EditingControl.GetType() == typeof(DataGridViewTextBoxEditingControl))
             {
-                ((DataGridViewTextBoxEditingControl)dataGridViewModels.EditingControl).CharacterCasing = CharacterCasing.Upper;
+                ((DataGridViewTextBoxEditingControl)dataGridViewModels.EditingControl).CharacterCasing = dataGridViewModels.CurrentCell.ColumnIndex > 0 ? CharacterCasing.Upper : CharacterCasing.Normal;
+                ((DataGridViewTextBoxEditingControl)dataGridViewModels.EditingControl).Text = (string)dataGridViewModels.CurrentCell.Value;
+            }
+        }
+
+        private void dataGridViewAirlines_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dataGridViewAirlines.EditingControl.GetType() == typeof(DataGridViewTextBoxEditingControl))
+            {
+                ((DataGridViewTextBoxEditingControl)dataGridViewAirlines.EditingControl).CharacterCasing = dataGridViewAirlines.CurrentCell.ColumnIndex > 0 ? CharacterCasing.Upper : CharacterCasing.Normal;
+                ((DataGridViewTextBoxEditingControl)dataGridViewAirlines.EditingControl).Text = (string)dataGridViewAirlines.CurrentCell.Value;
             }
         }
 
@@ -517,6 +527,34 @@ namespace ModelMatchingMagic
             writer.WriteAttributeString("ModelName", string.Join("//", models));
 
             writer.WriteEndElement();
+        }
+
+        private void dataGridViewAirlines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridViewAirlines.Rows[e.RowIndex];
+                int dest = 1;
+                for (int src = 1; src < row.Cells.Count; src++)
+                {
+                    row.Cells[dest].Value = row.Cells[src].Value;
+                    if (!String.IsNullOrWhiteSpace((string)row.Cells[src].Value))
+                    {
+                        row.Cells[dest++].ReadOnly = false;
+                    }
+                }
+                if (dest >= row.Cells.Count)
+                {
+                    int i = dataGridViewAirlines.Columns.Add("colCodesX", "");
+                    dataGridViewAirlines.Columns[i].Width = 60;
+                    dataGridViewAirlines.Columns[i].ReadOnly = true;
+                }
+                row.Cells[dest++].ReadOnly = false;
+                for (; dest < row.Cells.Count; dest++)
+                {
+                    row.Cells[dest].ReadOnly = true;
+                }
+            }
         }
     }
 }
