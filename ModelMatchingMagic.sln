@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelMatchingMagic", "ModelMatchingMagic.csproj", "{2568701F-E3C7-4338-BC7B-A90779D4E93E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2568701F-E3C7-4338-BC7B-A90779D4E93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2568701F-E3C7-4338-BC7B-A90779D4E93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2568701F-E3C7-4338-BC7B-A90779D4E93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2568701F-E3C7-4338-BC7B-A90779D4E93E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {238AC064-A922-4361-A6FF-1866DF337872}
+	EndGlobalSection
+EndGlobal
