@@ -235,17 +235,14 @@ namespace ModelMatchingMagic
                                     }
                                 }
 
-                                int i = dataGridViewModels.Rows.Add(title, airline, type, exclude/* || type == null || type.Length != 4*/);
-
                                 if (String.IsNullOrWhiteSpace(type))
                                 {
-                                    dataGridViewModels.Rows[i].Cells[3].Value = true;
-                                    dataGridViewModels.Rows[i].Cells[3].ReadOnly = true;
+                                    exclude = true;
                                 }
-                                else
-                                {
-                                    dataGridViewModels.Rows[i].Cells[3].ReadOnly = false;
-                                }
+
+                                int i = dataGridViewModels.Rows.Add(title, airline, type, exclude/* || type == null || type.Length != 4*/);
+
+                                dataGridViewModels.Rows[i].Cells[3].ReadOnly = String.IsNullOrWhiteSpace(type);
 
                                 if (userOverrideFound)
                                 {
@@ -368,7 +365,10 @@ namespace ModelMatchingMagic
             if (e.RowIndex >= 0 && e.ColumnIndex == 3)
             {
                 DataGridViewRow row = dataGridViewModels.Rows[e.RowIndex];
-                row.DefaultCellStyle.ForeColor = Color.Red;
+                if (!row.Cells[3].ReadOnly)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Red;
+                }
             }
         }
 

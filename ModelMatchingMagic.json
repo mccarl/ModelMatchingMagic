@@ -314,6 +314,11 @@
       "model": "Cessna Citation Longitude NETJETS",
       "airline": "EJA",
       "type": "C700"
+    },
+    {
+      "model": "American Eagle Classic",
+      "airline": "ENY",
+      "type": "CRJ7"
     }
   ],
 
