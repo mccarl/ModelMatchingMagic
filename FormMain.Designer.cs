@@ -29,7 +29,7 @@ namespace ModelMatchingMagic
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -44,18 +44,14 @@ namespace ModelMatchingMagic
             this.tabPageModels = new System.Windows.Forms.TabPage();
             this.tabPageAirlines = new System.Windows.Forms.TabPage();
             this.dataGridViewAirlines = new System.Windows.Forms.DataGridView();
-            this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageAircraft = new System.Windows.Forms.TabPage();
             this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
             this.colAircraftType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageModels.SuspendLayout();
@@ -205,53 +201,13 @@ namespace ModelMatchingMagic
             this.dataGridViewAirlines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAirlines.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colAirlineName,
-            this.colCodes1,
-            this.colCodes2,
-            this.colCodes3,
-            this.colCodes4,
-            this.colCodes5});
+            this.colCodes});
             this.dataGridViewAirlines.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewAirlines.Name = "dataGridViewAirlines";
             this.dataGridViewAirlines.Size = new System.Drawing.Size(765, 322);
             this.dataGridViewAirlines.TabIndex = 0;
             this.dataGridViewAirlines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAirlines_CellValueChanged);
             this.dataGridViewAirlines.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewAirlines_EditingControlShowing);
-            // 
-            // colAirlineName
-            // 
-            this.colAirlineName.HeaderText = "Airline Name";
-            this.colAirlineName.Name = "colAirlineName";
-            this.colAirlineName.Width = 150;
-            // 
-            // colCodes1
-            // 
-            this.colCodes1.HeaderText = "ICAO Codes";
-            this.colCodes1.Name = "colCodes1";
-            this.colCodes1.Width = 90;
-            // 
-            // colCodes2
-            // 
-            this.colCodes2.HeaderText = "";
-            this.colCodes2.Name = "colCodes2";
-            this.colCodes2.Width = 60;
-            // 
-            // colCodes3
-            // 
-            this.colCodes3.HeaderText = "";
-            this.colCodes3.Name = "colCodes3";
-            this.colCodes3.Width = 60;
-            // 
-            // colCodes4
-            // 
-            this.colCodes4.HeaderText = "";
-            this.colCodes4.Name = "colCodes4";
-            this.colCodes4.Width = 60;
-            // 
-            // colCodes5
-            // 
-            this.colCodes5.HeaderText = "";
-            this.colCodes5.Name = "colCodes5";
-            this.colCodes5.Width = 60;
             // 
             // tabPageAircraft
             // 
@@ -292,9 +248,9 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle5;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
             // 
@@ -302,6 +258,18 @@ namespace ModelMatchingMagic
             // 
             this.colEngine.HeaderText = "Engine Type";
             this.colEngine.Name = "colEngine";
+            // 
+            // colAirlineName
+            // 
+            this.colAirlineName.HeaderText = "Airline Name";
+            this.colAirlineName.Name = "colAirlineName";
+            this.colAirlineName.Width = 150;
+            // 
+            // colCodes
+            // 
+            this.colCodes.HeaderText = "ICAO Codes";
+            this.colCodes.Name = "colCodes";
+            this.colCodes.Width = 90;
             // 
             // FormMain
             // 
@@ -351,11 +319,7 @@ namespace ModelMatchingMagic
         private System.Windows.Forms.DataGridViewTextBoxColumn colSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEngine;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAirlineName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes;
     }
 }
 

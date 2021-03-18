@@ -37,28 +37,6 @@ namespace ModelMatchingMagic
                 mmm = JsonConvert.DeserializeObject<ModelMatchingMagic>(mmmJson);
             }
 
-
-            foreach (Airline_Group g in mmm.airline_groups)
-            {
-                int i = dataGridViewAirlines.Rows.Add(g.name);
-                int c = 1;
-                foreach (string code in g.codes)
-                {
-                    dataGridViewAirlines.Rows[i].Cells[c++].Value = code;
-                }
-                for (c++; c < dataGridViewAirlines.Columns.Count; c++)
-                {
-                    dataGridViewAirlines.Rows[i].Cells[c++].ReadOnly = true;
-                }
-                dataGridViewAirlines.Rows[i].Cells[0].ReadOnly = (i != dataGridViewAirlines.NewRowIndex);
-            }
-
-            foreach (Aircraft_Type t in mmm.aircraft_types)
-            {
-                int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine);
-                dataGridViewAircraft.Rows[i].Cells[0].ReadOnly = (i != dataGridViewAircraft.NewRowIndex);
-            }
-
             try
             {
                 using (StreamReader r = new StreamReader("ModelMatchingMagic.json"))
@@ -66,7 +44,67 @@ namespace ModelMatchingMagic
                     string userOverridesJson = r.ReadToEnd();
                     userOverrides = JsonConvert.DeserializeObject<ModelMatchingMagic>(userOverridesJson);
                 }
-            } catch (FileNotFoundException) { }
+            }
+            catch (FileNotFoundException) { }
+
+
+            foreach (Airline_Group g in mmm.airline_groups)
+            {
+                string[] rowData = new string[g.codes.Length + 1];
+                rowData[0] = g.name;
+                g.codes.CopyTo(rowData, 1);
+
+                while (dataGridViewAirlines.Columns.Count < g.codes.Length + 2)
+                {
+                    int c = dataGridViewAirlines.Columns.Add("colCodes", "");
+                    dataGridViewAirlines.Columns[c].Width = 60;
+                    dataGridViewAirlines.Columns[c].ReadOnly = true;
+                }
+
+                int i = dataGridViewAirlines.Rows.Add(rowData);
+                dataGridViewAirlines.Rows[i].Cells[0].ReadOnly = true;
+                for (int c = 1; c < dataGridViewAirlines.Columns.Count; c++)
+                {
+                    dataGridViewAirlines.Rows[i].Cells[c].ReadOnly = c > g.codes.Length + 1;
+                }
+            }
+            foreach (Airline_Group g in userOverrides.airline_groups)
+            {
+                string[] rowData = new string[g.codes.Length + 1];
+                rowData[0] = g.name;
+                g.codes.CopyTo(rowData, 1);
+
+                bool found = false;
+                foreach (DataGridViewRow row in dataGridViewAirlines.Rows)
+                {
+                    if (String.Equals(g.name, row.Cells[0].Value))
+                    {
+                        row.SetValues(rowData);
+                        row.DefaultCellStyle.ForeColor = Color.Red;
+                        for (int c = 1; c < dataGridViewAirlines.Columns.Count; c++)
+                        {
+                            row.Cells[c].ReadOnly = c > g.codes.Length + 1;
+                        }
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    int i = dataGridViewAirlines.Rows.Add(rowData);
+                    dataGridViewAirlines.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                    dataGridViewAirlines.Rows[i].Cells[0].ReadOnly = true;
+                    for (int c = 1; c < dataGridViewAirlines.Columns.Count; c++)
+                    {
+                        dataGridViewAirlines.Rows[i].Cells[c].ReadOnly = c > g.codes.Length + 1;
+                    }
+                }
+            }
+
+            foreach (Aircraft_Type t in mmm.aircraft_types)
+            {
+                int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine);
+                dataGridViewAircraft.Rows[i].Cells[0].ReadOnly = (i != dataGridViewAircraft.NewRowIndex);
+            }
         }
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
@@ -186,21 +224,6 @@ namespace ModelMatchingMagic
                                 {
                                     if (String.Equals(title, mo.model))
                                     {
-                                        //if (mo.airline != null)
-                                        //{
-                                        //    airline = mo.airline;
-                                        //    mmmOverrideFound = true;
-                                        //}
-                                        //if (mo.type != null)
-                                        //{
-                                        //    type = mo.type;
-                                        //    mmmOverrideFound = true;
-                                        //}
-                                        //if (mo.exclude != null)
-                                        //{
-                                        //    exclude = (bool)mo.exclude;
-                                        //    mmmOverrideFound = true;
-                                        //}
                                         airline = mo.airline;
                                         type = mo.type;
                                         exclude = mo.exclude!= null && (bool)mo.exclude;
@@ -213,21 +236,6 @@ namespace ModelMatchingMagic
                                 {
                                     if (String.Equals(title, mo.model))
                                     {
-                                        //if (mo.airline != null)
-                                        //{
-                                        //    airline = mo.airline;
-                                        //    userOverrideFound = true;
-                                        //}
-                                        //if (mo.type != null)
-                                        //{
-                                        //    type = mo.type;
-                                        //    userOverrideFound = true;
-                                        //}
-                                        //if (mo.exclude != null)
-                                        //{
-                                        //    exclude = (bool)mo.exclude;
-                                        //    userOverrideFound = true;
-                                        //}
                                         airline = mo.airline;
                                         type = mo.type;
                                         exclude = (bool)mo.exclude;
@@ -310,18 +318,6 @@ namespace ModelMatchingMagic
                     {
                         if (String.Equals(mo.model, row.Cells[0].Value))
                         {
-                            //if (e.ColumnIndex == 1)
-                            //{
-                            //    mo.airline = (string)row.Cells[1].Value;
-                            //}
-                            //else if (e.ColumnIndex == 2)
-                            //{
-                            //    mo.type = (string)row.Cells[2].Value;
-                            //}
-                            //else if (e.ColumnIndex == 3)
-                            //{
-                            //    mo.exclude = (bool)row.Cells[3].Value;
-                            //}
                             mo.airline = (string)row.Cells[1].Value;
                             mo.type = (string)row.Cells[2].Value;
                             mo.exclude = (bool)row.Cells[3].Value;
@@ -332,18 +328,6 @@ namespace ModelMatchingMagic
                     {
                         Model_Override mo = new Model_Override();
                         mo.model = (string)row.Cells[0].Value;
-                        //if (e.ColumnIndex == 1)
-                        //{
-                        //    mo.airline = (string)row.Cells[1].Value;
-                        //}
-                        //else if (e.ColumnIndex == 2)
-                        //{
-                        //    mo.type = (string)row.Cells[2].Value;
-                        //}
-                        //else if (e.ColumnIndex == 3)
-                        //{
-                        //    mo.exclude = (bool)row.Cells[3].Value;
-                        //}
                         mo.airline = (string)row.Cells[1].Value;
                         mo.type = (string)row.Cells[2].Value;
                         mo.exclude = (bool)row.Cells[3].Value;
@@ -352,7 +336,6 @@ namespace ModelMatchingMagic
                 }
 
                 string json = JsonConvert.SerializeObject(userOverrides, Newtonsoft.Json.Formatting.Indented);
-                //Console.WriteLine(json);
                 using (StreamWriter w = new StreamWriter("ModelMatchingMagic.json"))
                 {
                     w.WriteLine(json);
@@ -381,6 +364,61 @@ namespace ModelMatchingMagic
             }
         }
 
+        private void dataGridViewAirlines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridViewAirlines.Rows[e.RowIndex];
+                row.DefaultCellStyle.ForeColor = Color.Red;
+
+                List<string> codes = new List<string>();
+                int dest = 1;
+                for (int src = 1; src < row.Cells.Count; src++)
+                {
+                    row.Cells[dest].Value = row.Cells[src].Value;
+                    if (!String.IsNullOrWhiteSpace((string)row.Cells[src].Value))
+                    {
+                        codes.Add((string)row.Cells[src].Value);
+                        row.Cells[dest++].ReadOnly = false;
+                    }
+                }
+                if (dest >= row.Cells.Count)
+                {
+                    int i = dataGridViewAirlines.Columns.Add("colCodes", "");
+                    dataGridViewAirlines.Columns[i].Width = 60;
+                    dataGridViewAirlines.Columns[i].ReadOnly = true;
+                }
+                row.Cells[dest++].ReadOnly = false;
+                for (; dest < row.Cells.Count; dest++)
+                {
+                    row.Cells[dest].ReadOnly = true;
+                }
+
+                bool found = false;
+                foreach (Airline_Group ag in userOverrides.airline_groups)
+                {
+                    if (String.Equals(ag.name, row.Cells[0].Value))
+                    {
+                        ag.codes = codes.ToArray();
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    Airline_Group ag = new Airline_Group();
+                    ag.name = (string)row.Cells[0].Value;
+                    ag.codes = codes.ToArray();
+                    userOverrides.airline_groups.Add(ag);
+                }
+
+                string json = JsonConvert.SerializeObject(userOverrides, Newtonsoft.Json.Formatting.Indented);
+                using (StreamWriter w = new StreamWriter("ModelMatchingMagic.json"))
+                {
+                    w.WriteLine(json);
+                }
+            }
+        }
+
         private void dataGridViewAirlines_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridViewAirlines.EditingControl.GetType() == typeof(DataGridViewTextBoxEditingControl))
@@ -395,6 +433,7 @@ namespace ModelMatchingMagic
         {
             SortedDictionary<string, SortedDictionary<string, List<string>>> mappings = new SortedDictionary<string, SortedDictionary<string, List<string>>>();
             SortedDictionary<string, List<string>> genericMapping = new SortedDictionary<string, List<string>>();
+            List<string[]> airlineGroups = new List<string[]>();
 
             foreach (DataGridViewRow row in dataGridViewModels.Rows)
             {
@@ -426,6 +465,21 @@ namespace ModelMatchingMagic
                 }
             }
 
+            foreach (DataGridViewRow row in dataGridViewAirlines.Rows)
+            {
+                List<string> codes = new List<string>();
+                for (int c = 1; c < row.Cells.Count; c++)
+                {
+                    if (!String.IsNullOrWhiteSpace((string)row.Cells[c].Value))
+                    {
+                        codes.Add((string)row.Cells[c].Value);
+                    }
+                }
+
+                airlineGroups.Add(codes.ToArray());
+            }
+
+
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.IndentChars = ("    ");
@@ -439,13 +493,13 @@ namespace ModelMatchingMagic
                 {
                     WriteMatchRules(mapping.Key, mapping.Value, writer);
 
-                    foreach (Airline_Group group in mmm.airline_groups)
+                    foreach (string[] group in airlineGroups)
                     {
-                        foreach (string code in group.codes)
+                        foreach (string code in group)
                         {
                             if (String.Equals(mapping.Key, code))
                             {
-                                foreach (string matchedCode in group.codes)
+                                foreach (string matchedCode in group)
                                 {
                                     if (!String.Equals(mapping.Key, matchedCode))
                                     {
@@ -527,34 +581,6 @@ namespace ModelMatchingMagic
             writer.WriteAttributeString("ModelName", string.Join("//", models));
 
             writer.WriteEndElement();
-        }
-
-        private void dataGridViewAirlines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dataGridViewAirlines.Rows[e.RowIndex];
-                int dest = 1;
-                for (int src = 1; src < row.Cells.Count; src++)
-                {
-                    row.Cells[dest].Value = row.Cells[src].Value;
-                    if (!String.IsNullOrWhiteSpace((string)row.Cells[src].Value))
-                    {
-                        row.Cells[dest++].ReadOnly = false;
-                    }
-                }
-                if (dest >= row.Cells.Count)
-                {
-                    int i = dataGridViewAirlines.Columns.Add("colCodesX", "");
-                    dataGridViewAirlines.Columns[i].Width = 60;
-                    dataGridViewAirlines.Columns[i].ReadOnly = true;
-                }
-                row.Cells[dest++].ReadOnly = false;
-                for (; dest < row.Cells.Count; dest++)
-                {
-                    row.Cells[dest].ReadOnly = true;
-                }
-            }
         }
     }
 }
