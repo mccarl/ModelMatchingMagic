@@ -29,7 +29,7 @@ namespace ModelMatchingMagic
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -46,12 +46,13 @@ namespace ModelMatchingMagic
             this.dataGridViewAirlines = new System.Windows.Forms.DataGridView();
             this.tabPageAircraft = new System.Windows.Forms.TabPage();
             this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
+            this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAircraftType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRegex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageModels.SuspendLayout();
@@ -229,11 +230,24 @@ namespace ModelMatchingMagic
             this.colAircraftType,
             this.colManufacturer,
             this.colSize,
-            this.colEngine});
+            this.colEngine,
+            this.colRegex});
             this.dataGridViewAircraft.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewAircraft.Name = "dataGridViewAircraft";
             this.dataGridViewAircraft.Size = new System.Drawing.Size(762, 319);
             this.dataGridViewAircraft.TabIndex = 0;
+            // 
+            // colAirlineName
+            // 
+            this.colAirlineName.HeaderText = "Airline Name";
+            this.colAirlineName.Name = "colAirlineName";
+            this.colAirlineName.Width = 150;
+            // 
+            // colCodes
+            // 
+            this.colCodes.HeaderText = "ICAO Codes";
+            this.colCodes.Name = "colCodes";
+            this.colCodes.Width = 90;
             // 
             // colAircraftType
             // 
@@ -248,28 +262,23 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
+            this.colSize.Width = 60;
             // 
             // colEngine
             // 
             this.colEngine.HeaderText = "Engine Type";
             this.colEngine.Name = "colEngine";
             // 
-            // colAirlineName
+            // colRegex
             // 
-            this.colAirlineName.HeaderText = "Airline Name";
-            this.colAirlineName.Name = "colAirlineName";
-            this.colAirlineName.Width = 150;
-            // 
-            // colCodes
-            // 
-            this.colCodes.HeaderText = "ICAO Codes";
-            this.colCodes.Name = "colCodes";
-            this.colCodes.Width = 90;
+            this.colRegex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colRegex.HeaderText = "Match Rule (Regex)";
+            this.colRegex.Name = "colRegex";
             // 
             // FormMain
             // 
@@ -314,12 +323,13 @@ namespace ModelMatchingMagic
         private System.Windows.Forms.DataGridView dataGridViewAirlines;
         private System.Windows.Forms.TabPage tabPageAircraft;
         private System.Windows.Forms.DataGridView dataGridViewAircraft;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAirlineName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAircraftType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colManufacturer;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEngine;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAirlineName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRegex;
     }
 }
 

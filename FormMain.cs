@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using Newtonsoft.Json;
@@ -19,12 +13,6 @@ namespace ModelMatchingMagic
     {
         ModelMatchingMagic mmm;
         ModelMatchingMagic userOverrides = new ModelMatchingMagic();
-
-        Regex regexAirbus = new Regex(@"A([23])([0123458])([0189])(?:-([0-9]))?");
-        Regex regexBoeing = new Regex(@"7([0-8])7(?:-([0-9]))?");
-        Regex regexBoeingMax = new Regex(@"737.*MAX[ -]([0-9]{0,2})", RegexOptions.IgnoreCase);
-        Regex regexCessna = new Regex(@"([0-9]{3})");
-        Regex regexDiamond = new Regex(@"(DA[46][02])");
 
 
         public FormMain()
@@ -102,7 +90,7 @@ namespace ModelMatchingMagic
 
             foreach (Aircraft_Type t in mmm.aircraft_types)
             {
-                int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine);
+                int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine, t.regex);
                 dataGridViewAircraft.Rows[i].Cells[0].ReadOnly = (i != dataGridViewAircraft.NewRowIndex);
             }
         }
