@@ -29,7 +29,8 @@ namespace ModelMatchingMagic
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -38,22 +39,25 @@ namespace ModelMatchingMagic
             this.colAirline = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colExclude = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.buttonSelectFolder = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageModels = new System.Windows.Forms.TabPage();
             this.tabPageAirlines = new System.Windows.Forms.TabPage();
             this.dataGridViewAirlines = new System.Windows.Forms.DataGridView();
-            this.tabPageAircraft = new System.Windows.Forms.TabPage();
-            this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
             this.colAirlineName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageAircraft = new System.Windows.Forms.TabPage();
+            this.dataGridViewAircraft = new System.Windows.Forms.DataGridView();
             this.colAircraftType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colManufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRegex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageModels.SuspendLayout();
             this.tabPageAirlines.SuspendLayout();
@@ -92,7 +96,7 @@ namespace ModelMatchingMagic
             this.buttonScan.TabIndex = 2;
             this.buttonScan.Text = "&Scan";
             this.buttonScan.UseVisualStyleBackColor = true;
-            this.buttonScan.Click += new System.EventHandler(this.buttonScan_Click);
+            this.buttonScan.Click += new System.EventHandler(this.ButtonScan_Click);
             // 
             // dataGridViewModels
             // 
@@ -111,9 +115,10 @@ namespace ModelMatchingMagic
             this.dataGridViewModels.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewModels.Size = new System.Drawing.Size(765, 322);
             this.dataGridViewModels.TabIndex = 3;
-            this.dataGridViewModels.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModels_CellContentClick);
-            this.dataGridViewModels.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewModels_CellValueChanged);
-            this.dataGridViewModels.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewModels_EditingControlShowing);
+            this.dataGridViewModels.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewModels_CellContentClick);
+            this.dataGridViewModels.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewModels_CellValueChanged);
+            this.dataGridViewModels.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridViewModels_EditingControlShowing);
+            this.dataGridViewModels.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DataGridViewModels_MouseClick);
             // 
             // colModelName
             // 
@@ -136,6 +141,20 @@ namespace ModelMatchingMagic
             this.colExclude.HeaderText = "Exclude";
             this.colExclude.Name = "colExclude";
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemClear});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(150, 26);
+            this.contextMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStrip_ItemClicked);
+            // 
+            // toolStripMenuItemClear
+            // 
+            this.toolStripMenuItemClear.Name = "toolStripMenuItemClear";
+            this.toolStripMenuItemClear.Size = new System.Drawing.Size(149, 22);
+            this.toolStripMenuItemClear.Text = "Clear Override";
+            // 
             // buttonGenerate
             // 
             this.buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -145,7 +164,7 @@ namespace ModelMatchingMagic
             this.buttonGenerate.TabIndex = 4;
             this.buttonGenerate.Text = "&Generate VMR File";
             this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            this.buttonGenerate.Click += new System.EventHandler(this.ButtonGenerate_Click);
             // 
             // buttonSelectFolder
             // 
@@ -156,7 +175,7 @@ namespace ModelMatchingMagic
             this.buttonSelectFolder.TabIndex = 5;
             this.buttonSelectFolder.Text = "...";
             this.buttonSelectFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            this.buttonSelectFolder.Click += new System.EventHandler(this.ButtonSelectFolder_Click);
             // 
             // tabControl1
             // 
@@ -207,8 +226,20 @@ namespace ModelMatchingMagic
             this.dataGridViewAirlines.Name = "dataGridViewAirlines";
             this.dataGridViewAirlines.Size = new System.Drawing.Size(765, 322);
             this.dataGridViewAirlines.TabIndex = 0;
-            this.dataGridViewAirlines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAirlines_CellValueChanged);
-            this.dataGridViewAirlines.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewAirlines_EditingControlShowing);
+            this.dataGridViewAirlines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewAirlines_CellValueChanged);
+            this.dataGridViewAirlines.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridViewAirlines_EditingControlShowing);
+            // 
+            // colAirlineName
+            // 
+            this.colAirlineName.HeaderText = "Airline Name";
+            this.colAirlineName.Name = "colAirlineName";
+            this.colAirlineName.Width = 150;
+            // 
+            // colCodes
+            // 
+            this.colCodes.HeaderText = "ICAO Codes";
+            this.colCodes.Name = "colCodes";
+            this.colCodes.Width = 90;
             // 
             // tabPageAircraft
             // 
@@ -236,18 +267,7 @@ namespace ModelMatchingMagic
             this.dataGridViewAircraft.Name = "dataGridViewAircraft";
             this.dataGridViewAircraft.Size = new System.Drawing.Size(762, 319);
             this.dataGridViewAircraft.TabIndex = 0;
-            // 
-            // colAirlineName
-            // 
-            this.colAirlineName.HeaderText = "Airline Name";
-            this.colAirlineName.Name = "colAirlineName";
-            this.colAirlineName.Width = 150;
-            // 
-            // colCodes
-            // 
-            this.colCodes.HeaderText = "ICAO Codes";
-            this.colCodes.Name = "colCodes";
-            this.colCodes.Width = 90;
+            this.dataGridViewAircraft.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewAircraft_CellValueChanged);
             // 
             // colAircraftType
             // 
@@ -262,9 +282,9 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle5;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
             this.colSize.Width = 60;
@@ -294,6 +314,7 @@ namespace ModelMatchingMagic
             this.Name = "FormMain";
             this.Text = "ModelMatchingMagic";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageModels.ResumeLayout(false);
             this.tabPageAirlines.ResumeLayout(false);
@@ -330,6 +351,8 @@ namespace ModelMatchingMagic
         private System.Windows.Forms.DataGridViewTextBoxColumn colSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEngine;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRegex;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClear;
     }
 }
 

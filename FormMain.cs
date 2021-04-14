@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using Newtonsoft.Json;
@@ -11,9 +12,9 @@ namespace ModelMatchingMagic
 {
     public partial class FormMain : Form
     {
-        ModelMatchingMagic mmm;
-        ModelMatchingMagic userOverrides = new ModelMatchingMagic();
-
+        readonly ModelMatchingMagic mmm;
+        readonly ModelMatchingMagic userOverrides = new ModelMatchingMagic();
+        readonly Regex airlinePattern = new Regex("[A-Z]{3}");
 
         public FormMain()
         {
@@ -93,9 +94,36 @@ namespace ModelMatchingMagic
                 int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine, t.regex);
                 dataGridViewAircraft.Rows[i].Cells[0].ReadOnly = (i != dataGridViewAircraft.NewRowIndex);
             }
+            foreach (Aircraft_Type t in userOverrides.aircraft_types)
+            {
+                bool found = false;
+                foreach (DataGridViewRow row in dataGridViewAircraft.Rows)
+                {
+                    if (String.Equals(t.type, row.Cells[0].Value))
+                    {
+                        row.Cells[1].Value = t.tags.manufacturer;
+                        row.Cells[2].Value = t.tags.size;
+                        row.Cells[3].Value = t.tags.engine;
+                        row.Cells[4].Value = t.regex;
+                        row.DefaultCellStyle.ForeColor = Color.Red;
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    int i = dataGridViewAircraft.Rows.Add(t.type, t.tags.manufacturer, t.tags.size, t.tags.engine, t.regex);
+                    dataGridViewAircraft.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                    dataGridViewAircraft.Rows[i].Cells[0].ReadOnly = true;
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(userOverrides.path))
+            {
+                textBoxPath.Text = userOverrides.path;
+            }
         }
 
-        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        private void ButtonSelectFolder_Click(object sender, EventArgs e)
         {
             var dlg = new FolderPicker();
             dlg.InputPath = textBoxPath.Text.Replace("%LOCALAPPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
@@ -105,21 +133,34 @@ namespace ModelMatchingMagic
             }
         }
 
-        private void buttonScan_Click(object sender, EventArgs e)
+        private void ButtonScan_Click(object sender, EventArgs e)
         {
+            string path = textBoxPath.Text.Replace("%LOCALAPPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+            try
+            {
+                Directory.GetFiles(path);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show("Unable to locate directory (" + path + ")", "Directory Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             dataGridViewModels.Rows.Clear();
 
-            findAircraftCfgs(textBoxPath.Text.Replace("%LOCALAPPDATA%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)));
+            FindAircraftCfgs(path);
 
             for (int i = 0; i < dataGridViewModels.Rows.Count; i++)
             {
                 dataGridViewModels.Rows[i].Cells[0].ReadOnly = (i != dataGridViewModels.NewRowIndex);
             }
+
+            userOverrides.path = path;
+            SaveUserOverrides();
         }
 
-        private void findAircraftCfgs(string path)
+        private void FindAircraftCfgs(string path)
         {
-
             foreach (string f in Directory.GetFiles(path))
             {
                 if (f.Contains("aircraft.cfg"))
@@ -151,6 +192,10 @@ namespace ModelMatchingMagic
                                 if (value.StartsWith("\"") && value.EndsWith("\""))
                                 {
                                     value = value.Substring(1, value.Length - 2);
+                                }
+                                if (value.StartsWith("\""))
+                                {
+                                    value = value.Substring(1, value.Length - 1);
                                 }
 
                                 section[line.Substring(0, ei).Trim().ToLower()] = value;
@@ -197,6 +242,13 @@ namespace ModelMatchingMagic
                                         type = at.type;
                                     }
                                 }
+                                foreach (Aircraft_Type at in userOverrides.aircraft_types)
+                                {
+                                    if (at.isMatch(typeInput))
+                                    {
+                                        type = at.type;
+                                    }
+                                }
                             }
 
 
@@ -206,6 +258,12 @@ namespace ModelMatchingMagic
                             if (!ivao)
                             {
                                 bool exclude = false;
+
+                                
+                                if (String.IsNullOrWhiteSpace(airline) || !airlinePattern.IsMatch(airline))
+                                {
+                                    exclude = true;
+                                }
 
                                 bool mmmOverrideFound = false;
                                 foreach (Model_Override mo in mmm.model_overrides)
@@ -264,7 +322,7 @@ namespace ModelMatchingMagic
 
             foreach (string d in Directory.GetDirectories(path))
             {
-                findAircraftCfgs(d);
+                FindAircraftCfgs(d);
             }
         }
 
@@ -279,7 +337,16 @@ namespace ModelMatchingMagic
             return val;
         }
 
-        private void dataGridViewModels_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void SaveUserOverrides()
+        {
+            string json = JsonConvert.SerializeObject(userOverrides, Newtonsoft.Json.Formatting.Indented);
+            using (StreamWriter w = new StreamWriter("ModelMatchingMagic.json"))
+            {
+                w.WriteLine(json);
+            }
+        }
+
+        private void DataGridViewModels_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -323,15 +390,11 @@ namespace ModelMatchingMagic
                     }
                 }
 
-                string json = JsonConvert.SerializeObject(userOverrides, Newtonsoft.Json.Formatting.Indented);
-                using (StreamWriter w = new StreamWriter("ModelMatchingMagic.json"))
-                {
-                    w.WriteLine(json);
-                }
+                SaveUserOverrides();
             }
         }
 
-        private void dataGridViewModels_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewModels_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == 3)
             {
@@ -343,7 +406,7 @@ namespace ModelMatchingMagic
             }
         }
 
-        private void dataGridViewModels_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void DataGridViewModels_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridViewModels.EditingControl.GetType() == typeof(DataGridViewTextBoxEditingControl))
             {
@@ -352,7 +415,40 @@ namespace ModelMatchingMagic
             }
         }
 
-        private void dataGridViewAirlines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewModels_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView.HitTestInfo ht = dataGridViewModels.HitTest(e.X, e.Y);
+                dataGridViewModels.CurrentCell = dataGridViewModels.Rows[ht.RowIndex].Cells[Math.Max(ht.ColumnIndex, 0)];
+                if (dataGridViewModels.Rows[ht.RowIndex].DefaultCellStyle.ForeColor == Color.Red)
+                {
+                    contextMenuStrip.Show(dataGridViewModels, e.Location);
+                }
+            }
+        }
+
+        private void ContextMenuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem == toolStripMenuItemClear)
+            {
+                string model = (string)dataGridViewModels.Rows[dataGridViewModels.CurrentCell.RowIndex].Cells[0].Value;
+
+                foreach (Model_Override mo in userOverrides.model_overrides)
+                {
+                    if (String.Equals(mo.model, model))
+                    {
+                        userOverrides.model_overrides.Remove(mo);
+                        break;
+                    }
+                }
+                SaveUserOverrides();
+
+                ButtonScan_Click(sender, e);
+            }
+        }
+
+        private void DataGridViewAirlines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -399,15 +495,11 @@ namespace ModelMatchingMagic
                     userOverrides.airline_groups.Add(ag);
                 }
 
-                string json = JsonConvert.SerializeObject(userOverrides, Newtonsoft.Json.Formatting.Indented);
-                using (StreamWriter w = new StreamWriter("ModelMatchingMagic.json"))
-                {
-                    w.WriteLine(json);
-                }
+                SaveUserOverrides();
             }
         }
 
-        private void dataGridViewAirlines_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void DataGridViewAirlines_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridViewAirlines.EditingControl.GetType() == typeof(DataGridViewTextBoxEditingControl))
             {
@@ -416,8 +508,66 @@ namespace ModelMatchingMagic
             }
         }
 
+        private void DataGridViewAircraft_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridViewAircraft.Rows[e.RowIndex];
+                if (String.IsNullOrWhiteSpace((string)row.Cells[0].Value) && String.IsNullOrWhiteSpace((string)row.Cells[1].Value) && String.IsNullOrWhiteSpace((string)row.Cells[2].Value) && String.IsNullOrWhiteSpace((string)row.Cells[3].Value) && String.IsNullOrWhiteSpace((string)row.Cells[4].Value))
+                {
+                    dataGridViewAircraft.Rows.Remove(row);
+                }
+                else
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Red;
 
-        private void buttonGenerate_Click(object sender, EventArgs e)
+                    bool found = false;
+                    foreach (Aircraft_Type at in userOverrides.aircraft_types)
+                    {
+                        if (String.Equals(at.type, row.Cells[0].Value))
+                        {
+                            at.tags.manufacturer = (string)row.Cells[1].Value;
+                            at.tags.size = (Int32)row.Cells[2].Value;
+                            //if (int.TryParse((string)row.Cells[2].Value, out int size))
+                            //{
+                            //    at.tags.size = size;
+                            //}
+                            //else
+                            //{
+                            //    row.Cells[2].Value = at.tags.size;
+                            //}
+                            at.tags.engine = (string)row.Cells[3].Value;
+                            at.regex = (string)row.Cells[4].Value;
+                            found = true;
+                        }
+                    }
+                    if (!found)
+                    {
+                        Aircraft_Type at = new Aircraft_Type();
+                        at.type = (string)row.Cells[0].Value;
+                        at.tags = new Tags();
+                        at.tags.manufacturer = (string)row.Cells[1].Value;
+                        at.tags.size = (Int32)row.Cells[2].Value;
+                        //if (int.TryParse((string)row.Cells[2].Value, out int size))
+                        //{
+                        //    at.tags.size = size;
+                        //}
+                        //else
+                        //{
+                        //    row.Cells[2].Value = at.tags.size = 10;
+                        //}
+                        at.tags.engine = (string)row.Cells[3].Value;
+                        at.regex = (string)row.Cells[4].Value;
+                        userOverrides.aircraft_types.Add(at);
+                    }
+                }
+
+                SaveUserOverrides();
+            }
+        }
+
+
+        private void ButtonGenerate_Click(object sender, EventArgs e)
         {
             SortedDictionary<string, SortedDictionary<string, List<string>>> mappings = new SortedDictionary<string, SortedDictionary<string, List<string>>>();
             SortedDictionary<string, List<string>> genericMapping = new SortedDictionary<string, List<string>>();

@@ -14,7 +14,10 @@ namespace ModelMatchingMagic
         public List<Model_Override> model_overrides { get; set; } = new List<Model_Override>();
         public List<Airline_Group> airline_groups { get; set; } = new List<Airline_Group>();
         public List<Aircraft_Type> aircraft_types { get; set; } = new List<Aircraft_Type>();
+
+        public string path { get; set; }
     }
+
     public class Model_Override
     {
         public string model { get; set; }

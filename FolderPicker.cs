@@ -32,8 +32,8 @@ namespace ModelMatchingMagic
             var dialog = (IFileOpenDialog)new FileOpenDialog();
             if (!string.IsNullOrEmpty(InputPath))
             {
-                if (CheckHr(SHCreateItemFromParsingName(InputPath, null, typeof(IShellItem).GUID, out var item), throwOnError) != 0)
-                    return false;
+                if (CheckHr(SHCreateItemFromParsingName(InputPath, null, typeof(IShellItem).GUID, out var item), throwOnError) == 0)
+                    //return false;
 
                 dialog.SetFolder(item);
             }
