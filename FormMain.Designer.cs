@@ -30,7 +30,7 @@ namespace ModelMatchingMagic
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -56,6 +56,7 @@ namespace ModelMatchingMagic
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRegex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -282,9 +283,9 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
             this.colSize.Width = 60;
@@ -300,11 +301,22 @@ namespace ModelMatchingMagic
             this.colRegex.HeaderText = "Match Rule (Regex)";
             this.colRegex.Name = "colRegex";
             // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(760, 428);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(28, 13);
+            this.labelVersion.TabIndex = 7;
+            this.labelVersion.Text = "v0.4";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonSelectFolder);
             this.Controls.Add(this.buttonGenerate);
@@ -353,6 +365,7 @@ namespace ModelMatchingMagic
         private System.Windows.Forms.DataGridViewTextBoxColumn colRegex;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemClear;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
 
