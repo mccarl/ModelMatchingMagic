@@ -21,6 +21,11 @@
       "exclude": true
     },
     {
+      "model": "Airbus A320 Neo FlyByWire",
+      "type": "A20N",
+      "exclude": true
+    },
+    {
       "model": "Airbus A320neo FlyByWire",
       "type": "A20N",
       "exclude": true
@@ -291,6 +296,16 @@
       "type": "A20N"
     },
     {
+      "model": "Airbus A320neo Lufthansa",
+      "airline": "DLH",
+      "type": "A20N"
+    },
+    {
+      "model": "Airbus A320 Neo Air Berlin",
+      "airline": "BER",
+      "type": "A20N"
+    },
+    {
       "model": "Boeing 747-8i Asobo UPS",
       "airline": "UPS",
       "type": "B748"
@@ -309,6 +324,11 @@
       "model": "Boeing 787-10 Emirates",
       "airline": "UAE",
       "type": "B78X"
+    },
+    {
+      "model": "Cessna CJ4 Citation American Eagle",
+      "airline": "ENY",
+      "type": "C25C"
     },
     {
       "model": "Cessna Citation Longitude NETJETS",
