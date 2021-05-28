@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ModelMatchingMagic")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Model Matching Magic")]
+[assembly: AssemblyDescription("A program to scan your MSFS2000 Community folder and build a custom VMR file for vPilot")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ModelMatchingMagic")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Copyright ©  2021 Phil McCarley")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -59,7 +59,14 @@ namespace ModelMatchingMagic
             }
             foreach (Airline_Group g in userOverrides.airline_groups)
             {
-                string[] rowData = new string[g.codes.Length + 1];
+                while (g.codes.Length >= (dataGridViewAirlines.Columns.Count - 1))
+                {
+                    int i = dataGridViewAirlines.Columns.Add("colCodes", "");
+                    dataGridViewAirlines.Columns[i].Width = 60;
+                    dataGridViewAirlines.Columns[i].ReadOnly = true;
+                }
+
+                string[] rowData = new string[/*g.codes.Length*/dataGridViewAirlines.Columns.Count + 1];
                 rowData[0] = g.name;
                 g.codes.CopyTo(rowData, 1);
 
@@ -121,6 +128,7 @@ namespace ModelMatchingMagic
             {
                 textBoxPath.Text = userOverrides.path;
             }
+            checkBoxIncludeIVAO.Checked = userOverrides.include_IVAO_models;
         }
 
         private void ButtonSelectFolder_Click(object sender, EventArgs e)
@@ -146,6 +154,11 @@ namespace ModelMatchingMagic
                 return;
             }
 
+            userOverrides.path = path;
+            SaveUserOverrides();
+
+            tabControl1.SelectedIndex = 0;
+
             dataGridViewModels.Rows.Clear();
 
             FindAircraftCfgs(path);
@@ -154,9 +167,6 @@ namespace ModelMatchingMagic
             {
                 dataGridViewModels.Rows[i].Cells[0].ReadOnly = (i != dataGridViewModels.NewRowIndex);
             }
-
-            userOverrides.path = path;
-            SaveUserOverrides();
         }
 
         private void FindAircraftCfgs(string path)
@@ -174,7 +184,13 @@ namespace ModelMatchingMagic
                         line = line.Trim();
                         if (line.StartsWith("[") && line.EndsWith("]")) {
                             section = new Dictionary<string, string>();
-                            content.Add(line.Substring(1, line.Length - 2), section);
+                            try
+                            {
+                                content.Add(line.Substring(1, line.Length - 2), section);
+                            } catch (ArgumentException)
+                            {
+                                section = null;
+                            }
                         }
                         else
                         {
@@ -255,7 +271,7 @@ namespace ModelMatchingMagic
 
 
 
-                            if (!ivao)
+                            if (!ivao || checkBoxIncludeIVAO.Checked)
                             {
                                 bool exclude = false;
 
@@ -272,7 +288,7 @@ namespace ModelMatchingMagic
                                     {
                                         airline = mo.airline;
                                         type = mo.type;
-                                        exclude = mo.exclude!= null && (bool)mo.exclude;
+                                        exclude = mo.exclude != null && (bool)mo.exclude;
                                         mmmOverrideFound = true;
                                     }
                                 }
@@ -513,7 +529,7 @@ namespace ModelMatchingMagic
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridViewAircraft.Rows[e.RowIndex];
-                if (String.IsNullOrWhiteSpace((string)row.Cells[0].Value) && String.IsNullOrWhiteSpace((string)row.Cells[1].Value) && String.IsNullOrWhiteSpace((string)row.Cells[2].Value) && String.IsNullOrWhiteSpace((string)row.Cells[3].Value) && String.IsNullOrWhiteSpace((string)row.Cells[4].Value))
+                if (String.IsNullOrWhiteSpace((string)row.Cells[0].FormattedValue) && String.IsNullOrWhiteSpace((string)row.Cells[1].FormattedValue) && String.IsNullOrWhiteSpace((string)row.Cells[2].FormattedValue) && String.IsNullOrWhiteSpace((string)row.Cells[3].FormattedValue) && String.IsNullOrWhiteSpace((string)row.Cells[4].FormattedValue))
                 {
                     dataGridViewAircraft.Rows.Remove(row);
                 }
@@ -527,15 +543,15 @@ namespace ModelMatchingMagic
                         if (String.Equals(at.type, row.Cells[0].Value))
                         {
                             at.tags.manufacturer = (string)row.Cells[1].Value;
-                            at.tags.size = (Int32)row.Cells[2].Value;
-                            //if (int.TryParse((string)row.Cells[2].Value, out int size))
-                            //{
-                            //    at.tags.size = size;
-                            //}
-                            //else
-                            //{
-                            //    row.Cells[2].Value = at.tags.size;
-                            //}
+                            //at.tags.size = row.Cells[2] != null && row.Cells[2].Value != null ? (Int32)row.Cells[2].Value : 0;
+                            if (int.TryParse((string)row.Cells[2].FormattedValue, out int size))
+                            {
+                                at.tags.size = size;
+                            }
+                            else
+                            {
+                                row.Cells[2].Value = at.tags.size;
+                            }
                             at.tags.engine = (string)row.Cells[3].Value;
                             at.regex = (string)row.Cells[4].Value;
                             found = true;
@@ -547,15 +563,15 @@ namespace ModelMatchingMagic
                         at.type = (string)row.Cells[0].Value;
                         at.tags = new Tags();
                         at.tags.manufacturer = (string)row.Cells[1].Value;
-                        at.tags.size = (Int32)row.Cells[2].Value;
-                        //if (int.TryParse((string)row.Cells[2].Value, out int size))
-                        //{
-                        //    at.tags.size = size;
-                        //}
-                        //else
-                        //{
-                        //    row.Cells[2].Value = at.tags.size = 10;
-                        //}
+                        //at.tags.size = row.Cells[2] != null && row.Cells[2].Value != null ? (Int32)row.Cells[2].Value : 0;
+                        if (int.TryParse((string)row.Cells[2].FormattedValue, out int size))
+                        {
+                            at.tags.size = size;
+                        }
+                        else
+                        {
+                            row.Cells[2].Value = at.tags.size = 10;
+                        }
                         at.tags.engine = (string)row.Cells[3].Value;
                         at.regex = (string)row.Cells[4].Value;
                         userOverrides.aircraft_types.Add(at);
@@ -564,6 +580,12 @@ namespace ModelMatchingMagic
 
                 SaveUserOverrides();
             }
+        }
+
+        private void checkBoxIncludeIVAO_CheckedChanged(object sender, EventArgs e)
+        {
+            userOverrides.include_IVAO_models = checkBoxIncludeIVAO.Checked;
+            SaveUserOverrides();
         }
 
 
@@ -665,22 +687,35 @@ namespace ModelMatchingMagic
                 WriteMatchRule(airline, typeMapping.Key, typeMapping.Value, writer);
             }
 
-            foreach (Aircraft_Type aircraftType in mmm.aircraft_types)
+            foreach (DataGridViewRow row in dataGridViewAircraft.Rows)
             {
-                if (!typeMappings.ContainsKey(aircraftType.type))
+                Aircraft_Type at = new Aircraft_Type();
+                at.type = (string)row.Cells[0].Value;
+                at.tags = new Tags();
+                at.tags.manufacturer = (string)row.Cells[1].Value;
+                //at.tags.size = row.Cells[2] != null && row.Cells[2].Value != null ? (Int32)row.Cells[2].Value : 0;
+                if (int.TryParse((string)row.Cells[2].FormattedValue, out int size))
+                {
+                    at.tags.size = size;
+                }
+                else
+                {
+                    at.tags.size = 10;
+                }
+                at.tags.engine = (string)row.Cells[3].Value;
+
+                if (!String.IsNullOrWhiteSpace(at.type) && !typeMappings.ContainsKey(at.type))
                 {
                     List<string> matchingModels = new List<string>();
 
-                    CheckSimilarAircraft(aircraftType, typeMappings, true, true, true, matchingModels);
-                    CheckSimilarAircraft(aircraftType, typeMappings, false, true, true, matchingModels);
-                    CheckSimilarAircraft(aircraftType, typeMappings, true, false, true, matchingModels);
-                    CheckSimilarAircraft(aircraftType, typeMappings, false, false, true, matchingModels);
-                    //CheckSimilarAircraft(aircraftType, typeMappings, true, true, true, matchingModels);
-                    //CheckSimilarAircraft(aircraftType, typeMappings, true, true, true, matchingModels);
+                    CheckSimilarAircraft(at, typeMappings, true, true, true, matchingModels);
+                    CheckSimilarAircraft(at, typeMappings, false, true, true, matchingModels);
+                    CheckSimilarAircraft(at, typeMappings, true, false, true, matchingModels);
+                    CheckSimilarAircraft(at, typeMappings, false, false, true, matchingModels);
 
                     if (matchingModels.Count > 0)
                     {
-                        WriteMatchRule(airline, aircraftType.type, matchingModels, writer);
+                        WriteMatchRule(airline, at.type, matchingModels, writer);
                     }
                 }
             }

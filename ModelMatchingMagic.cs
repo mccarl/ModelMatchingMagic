@@ -16,6 +16,7 @@ namespace ModelMatchingMagic
         public List<Aircraft_Type> aircraft_types { get; set; } = new List<Aircraft_Type>();
 
         public string path { get; set; }
+        public bool include_IVAO_models { get; set; }
     }
 
     public class Model_Override
