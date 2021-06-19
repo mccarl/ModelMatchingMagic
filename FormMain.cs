@@ -305,7 +305,7 @@ namespace ModelMatchingMagic
                                     }
                                 }
 
-                                if (String.IsNullOrWhiteSpace(type))
+                                if (String.IsNullOrWhiteSpace(type) || type.Length < 2 || type.Length > 4)
                                 {
                                     exclude = true;
                                 }
@@ -607,10 +607,10 @@ namespace ModelMatchingMagic
                 string type = (string)row.Cells[2].Value;
                 bool exclude = (bool)row.Cells[3].Value;
 
-                if (type != null && type.Length == 4 && !exclude)
+                if (type != null && type.Length >= 2 && type.Length <= 4 && !exclude)
                 {
                     SortedDictionary<string, List<string>> typeMappings;
-                    if (airline != null && airline.Length == 3)
+                    if (airline != null && airline.Length > 0)
                     {
                         typeMappings = GetOrCreate(mappings, airline, createNew: () => new SortedDictionary<string, List<string>>());
                     }

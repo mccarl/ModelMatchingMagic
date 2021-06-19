@@ -30,11 +30,15 @@ namespace ModelMatchingMagic
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
             this.dataGridViewModels = new System.Windows.Forms.DataGridView();
+            this.colModelName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAirline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colExclude = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemClear = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonGenerate = new System.Windows.Forms.Button();
@@ -52,13 +56,9 @@ namespace ModelMatchingMagic
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEngine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRegex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelVersion = new System.Windows.Forms.Label();
             this.tabPageOptions = new System.Windows.Forms.TabPage();
             this.checkBoxIncludeIVAO = new System.Windows.Forms.CheckBox();
-            this.colModelName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAirline = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colExclude = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.labelVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -123,6 +123,28 @@ namespace ModelMatchingMagic
             this.dataGridViewModels.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewModels_CellValueChanged);
             this.dataGridViewModels.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridViewModels_EditingControlShowing);
             this.dataGridViewModels.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DataGridViewModels_MouseClick);
+            // 
+            // colModelName
+            // 
+            this.colModelName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colModelName.HeaderText = "Model Name";
+            this.colModelName.Name = "colModelName";
+            // 
+            // colAirline
+            // 
+            this.colAirline.HeaderText = "Airline ICAO";
+            this.colAirline.Name = "colAirline";
+            // 
+            // colType
+            // 
+            this.colType.HeaderText = "Aircraft Type";
+            this.colType.Name = "colType";
+            // 
+            // colExclude
+            // 
+            this.colExclude.HeaderText = "Exclude";
+            this.colExclude.Name = "colExclude";
+            this.colExclude.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // contextMenuStrip
             // 
@@ -266,9 +288,9 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
             this.colSize.Width = 60;
@@ -283,16 +305,6 @@ namespace ModelMatchingMagic
             this.colRegex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colRegex.HeaderText = "Match Rule (Regex)";
             this.colRegex.Name = "colRegex";
-            // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(751, 432);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(37, 13);
-            this.labelVersion.TabIndex = 7;
-            this.labelVersion.Text = "v1.0.1";
             // 
             // tabPageOptions
             // 
@@ -316,27 +328,15 @@ namespace ModelMatchingMagic
             this.checkBoxIncludeIVAO.UseVisualStyleBackColor = true;
             this.checkBoxIncludeIVAO.CheckedChanged += new System.EventHandler(this.checkBoxIncludeIVAO_CheckedChanged);
             // 
-            // colModelName
+            // labelVersion
             // 
-            this.colModelName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colModelName.HeaderText = "Model Name";
-            this.colModelName.Name = "colModelName";
-            // 
-            // colAirline
-            // 
-            this.colAirline.HeaderText = "Airline ICAO";
-            this.colAirline.Name = "colAirline";
-            // 
-            // colType
-            // 
-            this.colType.HeaderText = "Aircraft Type";
-            this.colType.Name = "colType";
-            // 
-            // colExclude
-            // 
-            this.colExclude.HeaderText = "Exclude";
-            this.colExclude.Name = "colExclude";
-            this.colExclude.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(751, 432);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(37, 13);
+            this.labelVersion.TabIndex = 7;
+            this.labelVersion.Text = "v1.0.2";
             // 
             // FormMain
             // 
