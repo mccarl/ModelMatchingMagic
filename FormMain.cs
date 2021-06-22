@@ -661,7 +661,7 @@ namespace ModelMatchingMagic
                             {
                                 foreach (string matchedCode in group)
                                 {
-                                    if (!String.Equals(mapping.Key, matchedCode))
+                                    if (!String.Equals(mapping.Key, matchedCode) && !mappings.ContainsKey(matchedCode))
                                     {
                                         WriteMatchRules(matchedCode, mapping.Value, writer);
                                     }
