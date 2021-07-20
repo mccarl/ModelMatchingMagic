@@ -202,10 +202,10 @@ namespace ModelMatchingMagic
                                 int sci = value.IndexOf(";");
                                 if (sci >= 0)
                                 {
-                                    value = value.Substring(0, value.IndexOf(";")).Trim();
+                                    value = value.Substring(0, sci).Trim();
                                 }
 
-                                if (value.StartsWith("\"") && value.EndsWith("\""))
+                                if (value.StartsWith("\"") && value.EndsWith("\"") && value.Length >= 2)
                                 {
                                     value = value.Substring(1, value.Length - 2);
                                 }
