@@ -30,7 +30,7 @@ namespace ModelMatchingMagic
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonScan = new System.Windows.Forms.Button();
@@ -288,9 +288,9 @@ namespace ModelMatchingMagic
             // 
             // colSize
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.colSize.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = null;
+            this.colSize.DefaultCellStyle = dataGridViewCellStyle3;
             this.colSize.HeaderText = "Size";
             this.colSize.Name = "colSize";
             this.colSize.Width = 60;
@@ -330,26 +330,27 @@ namespace ModelMatchingMagic
             // 
             // labelVersion
             // 
+            this.labelVersion.AllowDrop = true;
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(751, 432);
+            this.labelVersion.Location = new System.Drawing.Point(480, 429);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(37, 13);
+            this.labelVersion.Size = new System.Drawing.Size(304, 13);
             this.labelVersion.TabIndex = 7;
-            this.labelVersion.Text = "v1.0.2";
+            this.labelVersion.Text = "v1.0.3";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 454);
-            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonSelectFolder);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.buttonScan);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPath);
+            this.Controls.Add(this.labelVersion);
             this.Name = "FormMain";
             this.Text = "ModelMatchingMagic";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModels)).EndInit();
